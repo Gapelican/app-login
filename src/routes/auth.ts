@@ -3,6 +3,7 @@ import express from "express";
 import { validateRequest } from "../middlewares/validator.ts";
 import { UserSchema, LoginSchema } from "../schemas/auth.ts";
 import { AuthService } from "../services/auth-service.ts";
+import { authMiddleware } from "../middlewares/auth.ts";
 
 const router = express.Router();
 
@@ -36,9 +37,9 @@ router.post("/login", validateRequest(LoginSchema), async (req, res) => {
   try {
     const { email, senha } = req.body;
     
-    const user = await AuthService.login(email, senha);
+    const result = await AuthService.login(email, senha);
     
-    if (!user) {
+    if (!result) {
       return res.status(401).json({
         status: 'error',
         message: 'Email ou senha incorretos'
@@ -48,7 +49,8 @@ router.post("/login", validateRequest(LoginSchema), async (req, res) => {
     res.status(200).json({
       status: 'success',
       message: 'Login realizado com sucesso!',
-      user
+      user: result.user,
+      token: result.token
     });
   } catch (error) {
     console.error("Erro ao fazer login:", error);
@@ -57,6 +59,15 @@ router.post("/login", validateRequest(LoginSchema), async (req, res) => {
       message: 'Erro ao fazer login'
     });
   }
+});
+
+// Nova rota para validar token
+router.get("/validate", authMiddleware, (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Token válido',
+    user: req.user
+  });
 });
 
 export default router;

@@ -1,6 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
 
-const dbFile = Deno.env.get('DB_FILE') || "users-dev.db";
+const dbFile = Deno.env.get('DB_FILE') ?? "users-dev.db";
 
 export const db = new DatabaseSync(dbFile);
 

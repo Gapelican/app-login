@@ -1,20 +1,36 @@
 // Teste de registro de usuário
-POST http://localhost:8000/auth/register
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "nome": "Alonso",
-  "email": "Alonso@example.com",
+  "nome": "dasdasd",
+  "email": "miguelito@example.com",
   "senha": "password123"
 }
 
 ###
 
-// Teste de login de usuário
-POST http://localhost:8000/auth/login
+// Teste de login de usuário - obtendo token JWT
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "Alonso@example.com",
+  "email": "miguelito@example.com",
   "senha": "password123"
 }
+
+###
+
+// Depois de efetuar o login, copie o token da resposta e substitua <your_valid_token_here>
+
+// Teste de validação de token com token válido
+GET http://localhost:3000/auth/validate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoibWlndWVsaXRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQzMjczODU0LCJleHAiOjE3NDMzNjAyNTR9.ggij8hpJjUs6f2O-6ecwnO5cI2WUkEgGIbLqqfi7Nio
+
+###
+
+// Teste de validação de token com token inválido
+GET http://localhost:3000/auth/validate
+Content-Type: application/json
+Authorization: Bearer invalidtoken123
