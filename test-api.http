@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "nome": "dasdasd",
-  "email": "miguelito@example.com",
+  "nome": "teste1",
+  "email": "teste1@example.com",
   "senha": "password123"
 }
 
@@ -15,18 +15,16 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "miguelito@example.com",
+  "email": "teste1@example.com",
   "senha": "password123"
 }
 
 ###
 
-// Depois de efetuar o login, copie o token da resposta e substitua <your_valid_token_here>
-
 // Teste de validação de token com token válido
 GET http://localhost:3000/auth/validate
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoibWlndWVsaXRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQzMjczODU0LCJleHAiOjE3NDMzNjAyNTR9.ggij8hpJjUs6f2O-6ecwnO5cI2WUkEgGIbLqqfi7Nio
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImVtYWlsIjoidGVzdGUyQHRlc3RlLmNvbSIsImlhdCI6MTc0MzM2ODA0NiwiZXhwIjoxNzQzNDU0NDQ2fQ.O-3AszvshhA7Z53MA7L3toKn31UKlr-ns1FkLZBLKzM
 
 ###
 

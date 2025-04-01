@@ -1,24 +1,9 @@
-// src/middlewares/auth.ts
-import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = Deno.env.get("JWT_SECRET") || "sua_chave_secreta_temporaria";
 
-interface DecodedToken {
-  userId: number;
-  email: string;
-}
 
-// Interface para estender o tipo Request
-declare global {
-  namespace Express {
-    interface Request {
-      user?: DecodedToken;
-    }
-  }
-}
-
-export function generateToken(userId: number, email: string): string {
+export function generateToken(userId, email) {
   return jwt.sign(
     { userId, email },
     JWT_SECRET,
@@ -26,7 +11,7 @@ export function generateToken(userId: number, email: string): string {
   );
 }
 
-export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export function authMiddleware(req, res, next) {
   try {
     const authHeader = req.headers.authorization;
     
@@ -38,7 +23,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     }
     
     const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
+    const decoded = jwt.verify(token, JWT_SECRET);
     
     req.user = decoded;
     next();
